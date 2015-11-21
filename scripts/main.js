@@ -36,12 +36,8 @@
         gameData.playerPosition.posX = posX;
         gameData.playerPosition.posY = posY;
         clearCharacterCanvas();
-        if (playerData.direction == 'left') {
-            characterContext.drawImage(playerLeft, posX * 32, posY * 32, 32, 32);
-        }
-        else if (playerData.direction == 'right') {
-            characterContext.drawImage(playerRight, posX * 32, posY * 32, 32, 32);
-        }
+        var a = playerData.direction === 'right' ? playerRight : playerLeft;
+        characterContext.drawImage(a, posX * 32, posY * 32, 32, 32);
         
     }
 
@@ -57,23 +53,23 @@
         }
 
         grass.onload = function () {
-            for (var i = 0; i < map.length; i++) {
-                for (var j = 0; j < map[i].length; j++) {
+            stone.onload = function () {
+                for (var i = 0; i < map.length; i++) {
+                    for (var j = 0; j < map[i].length; j++) {
 
-                    if (map[i][j] == 0 ) {
-                        context.drawImage(grass, posX, posY, 32, 32);
+                        if (map[i][j] == 0) {
+                            context.drawImage(grass, posX, posY, 32, 32);
+                        }
+                        if (map[i][j] == 2) {
+                            context.drawImage(stone, posX, posY, 32, 32);
+                        }
+                        posX += 32;
                     }
-                    if (map[i][j] == 2) {
-                        context.drawImage(stone, posX, posY, 32, 32);
-                    }
-                    posX += 32;
-
+                    posX = 0;
+                    posY += 32;
                 }
-                posX = 0;
-                posY += 32;
             }
         }
-
     }
 
     function DrawTreasures(map, context, amount) {
