@@ -1,9 +1,11 @@
 ﻿requirejs(["settings"], function(util) {
 
+    console.log("map init started");
+
     var gameData = {
         'treaseureLocations': [],
         'playerPosition': {}
-    };
+    };    
 
     var player = new Image();
     player.src = "Graphics/Characters/chara.png"
@@ -13,44 +15,42 @@
 
     var grass = new Image();
     grass.src = "Graphics/Tilesets/grass.png";
+    
+    var canvas = document.getElementById('mainArea');
+    var characterCanvas = document.getElementById('characterLayer');
+    var context = canvas.getContext('2d');
+    var characterContext = characterCanvas.getContext('2d');
+    canvas.width = canvasWidth;
+    canvas.height = canvasWidth;
+    canvas.style.width =( window.innerWidth -30) + 'px';
+    canvas.style.height = (window.innerHeight -30) + 'px';
+    characterCanvas.width = characterCanvasWidth;
+    characterCanvas.height = characterCanvasHeight;
+    characterCanvas.style.width = (window.innerHeight - 30) + 'px';
+    characterCanvas.style.height = (window.innerHeight - 30) + 'px';
+    var mapWidth = canvas.width;
+    var mapHeight = canvas.height;
+    var mapArray = [];
 
-    function initMap() {
-        console.log("map init started");
-        var canvas = document.getElementById('mainArea');
-        var characterCanvas = document.getElementById('characterLayer');
-        var context = canvas.getContext('2d');
-        var characterContext = characterCanvas.getContext('2d');
-        canvas.width = canvasWidth;
-        canvas.height = canvasWidth;
-        canvas.style.width =( window.innerWidth -30) + 'px';
-        canvas.style.height = (window.innerHeight -30) + 'px';
-        characterCanvas.width = characterCanvasWidth;
-        characterCanvas.height = characterCanvasHeight;
-        characterCanvas.style.width = (window.innerHeight - 30) + 'px';
-        characterCanvas.style.height = (window.innerHeight - 30) + 'px';
-        var mapWidth = canvas.width;
-        var mapHeight = canvas.height;
-        var mapArray = [];
+    var widthSquares = mapWidth / 32;
+    var heightSquares = mapHeight / 32;
+    var treasureAmount = 10;
 
-        var widthSquares = mapWidth / 32;
-        var heightSquares = mapHeight / 32;
-        var treasureAmount = 10;
-
-        InitMapArray(mapArray, widthSquares, heightSquares);
-        DrawLand(mapArray, context);
-        DrawTreasures(mapArray, context, treasureAmount);
-        SpawnPlayer(mapArray, characterContext, 0, 0);
-    }
+    InitMapArray(mapArray, widthSquares, heightSquares);
+    DrawLand(mapArray, context);
+    DrawTreasures(mapArray, context, treasureAmount);
+    SpawnPlayer(mapArray, characterContext, 0, 0);
 
     function renderingLoop() {
 
         QueueNewFrame();
     }
 
-    function setPlayerPosition(player, context, posX, posY) {
+    function setPlayerPosition(posX, posY) {
         gameData.playerPosition.posX = posX;
         gameData.playerPosition.posY = posY;
-        context.drawImage(player, posX, posY, 32, 32);
+        characterContext.clearRect(0, 0, characterCanvasWidth, characterCanvasHeight); //clear the canvas
+        characterContext.drawImage(player, posX, posY, 32, 32);
     }
 
     function SpawnPlayer(map, context, posX, posY) {
@@ -59,7 +59,7 @@
                 for (var j = 0; j < map[i].length; j++) {
 
                     if (i == posX) {
-                        setPlayerPosition(player, context, posX, posY);
+                        setPlayerPosition(posX, posY);
                     }
                     posX += 32;
                 }
@@ -166,21 +166,20 @@
         }
     };
 
-    initMap();
-
     $(document).on('keydown', function(e) {
+        var currentPosition = gameData.playerPosition;
         switch (e.which) {
             case left:
-                console.log('left pressed')
+                setPlayerPosition(currentPosition.posX - 1, currentPosition.posY);
                 break;
             case right:
-                console.log('right pressed')
+                setPlayerPosition(currentPosition.posX + 1, currentPosition.posY);
                 break;
             case down:
-                console.log('down pressed')
+                setPlayerPosition(currentPosition.posX, currentPosition.posY + 1);
                 break;
             case up:
-                console.log('up pressed')
+                setPlayerPosition(currentPosition.posX, currentPosition.posY - 1);
                 break;
         }   
     });
