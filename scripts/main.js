@@ -8,13 +8,9 @@
         'stoneAmount': 8,
         'playerPosition': {},
         'treasureAmount': treasureAmount,
-        'lazors': {'maxLazors': 20, 'lazors': 10}
+        'lazors': { 'maxLazors': 20, 'lazors': 10 },
+        'playerData':{'name':'Santoro', 'direction':'left'}
     };    
-
-    var playerData = {
-        'name': 'Santoro',
-        'direction': 'left'
-    };
 
     InitMapArray(mapArray, widthSquares, heightSquares);
     DrawLand(mapArray, context);
@@ -27,7 +23,6 @@
         setPlayerPosition(midPoint, midPoint);
     };
     
-
     function renderingLoop() {
 
         QueueNewFrame();
@@ -37,7 +32,7 @@
         gameData.playerPosition.posX = posX;
         gameData.playerPosition.posY = posY;
         clearCharacterCanvas();
-        var a = playerData.direction === 'right' ? playerRight : playerLeft;
+        var a = gameData.playerData.direction === 'right' ? playerRight : playerLeft;
         characterContext.drawImage(a, posX * 32, posY * 32, 32, 32);
         
     }
@@ -208,16 +203,27 @@
         $('#lazorStatus').text(gameData.lazors.lazors + ' / ' + gameData.lazors.maxLazors + ' LAZORS');
         
     }
-
+    function CheckObstacle(posX,posY) {
+        
+        for (var i = 0; i < gameData.stoneLocations.length; i++) {
+            if (posX === gameData.stoneLocations[i].posX && posY === gameData.stoneLocations[i].posY) {
+                return true;
+            }
+        }
+        return false;
+    }
     $(document).on('keydown', function(e) {
         var currentPosition = gameData.playerPosition;
         switch (e.which) {
             case left:
-                playerData.direction = 'left';
+                var isHit = CheckObstacle(currentPosition.posX - 1, currentPosition.posY);
+                gameData.playerData.direction = 'left';
                 setPlayerPosition(currentPosition.posX - 1, currentPosition.posY);
+                isHit ? console.log("Stone!") : setPlayerPosition(currentPosition.posX - 1, currentPosition.posY);
                 break;
             case right:
-                playerData.direction = 'right';
+                var isHit = CheckObstacle(currentPosition.posX - 1, currentPosition.posY);
+                gameData.playerData.direction = 'right';
                 setPlayerPosition(currentPosition.posX + 1, currentPosition.posY);
                 break;
             case down:
