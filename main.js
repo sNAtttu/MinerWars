@@ -8,10 +8,11 @@
 
     var widthSquares = mapWidth / 32;
     var heightSquares = mapHeight / 32;
+    var treasureAmount = 10;
 
     InitMapArray(mapArray, widthSquares, heightSquares);
     DrawLand(mapArray, context);
-    DrawTreasures(mapArray, context);
+    DrawTreasures(mapArray, context, treasureAmount);
 }
 
 function DrawLand(map,context) {
@@ -35,11 +36,18 @@ function DrawLand(map,context) {
     }
 }
 
-function DrawTreasures(map, context) {
+function DrawTreasures(map, context, amount) {
     var sand = new Image();
     sand.src = "Graphics/Tilesets/sand.png";
     var posX = 0;
     var posY = 0;
+    
+    for (var i = 0; i < amount; i++) {
+        var treasurePosX = Math.floor((Math.random() * map[0].length));
+        var treasurePosY = Math.floor((Math.random() * map.length));
+        map[treasurePosX][treasurePosY] = 1;
+    }
+
     sand.onload = function () {
         for (var i = 0; i < map.length; i++) {
             for (var j = 0; j < map[i].length; j++) {
