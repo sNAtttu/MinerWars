@@ -26,7 +26,7 @@
     function setPlayerPosition(posX, posY) {
         gameData.playerPosition.posX = posX;
         gameData.playerPosition.posY = posY;
-        characterContext.clearRect(0, 0, characterCanvasWidth, characterCanvasHeight); //clear the canvas
+        clearCharacterCanvas();
         characterContext.drawImage(player, posX * 32, posY * 32, 32, 32);
     }
 
@@ -144,6 +144,10 @@
         }
     };
 
+    function clearCharacterCanvas() {
+        characterContext.clearRect(0, 0, characterCanvasWidth, characterCanvasHeight); //clear the canvas
+    }
+
     function shootLazor() {
         var r1, r2, a = 0, b = 0;
         r1 = Math.floor(Math.random() * 3) - 1;
@@ -153,7 +157,7 @@
             r2 < 0 ? b = -i : b = +i;
             characterContext.drawImage(lazor, (gameData.playerPosition.posX + (r1 + a)) * 32, (gameData.playerPosition.posY + (r2 + b)) * 32, 32, 32);    
             window.setTimeout(function() {
-                characterContext.clearRect(0, 0, characterCanvasWidth, characterCanvasHeight); //clear the canvas
+                clearCharacterCanvas();
             }, 200);
 
         }
