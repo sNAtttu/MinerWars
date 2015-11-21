@@ -37,7 +37,6 @@ function SpawnPlayer(map, context, posX, posY) {
     player.onload = function () {
         for (var i = 0; i < map.length; i++) {
             for (var j = 0; j < map[i].length; j++) {
-
                 if (i == posX) {
                     context.drawImage(player, posX, posY, 32, 32);
                 }
@@ -57,18 +56,15 @@ function DrawLand(map,context) {
     grass.onload = function () {
         for (var i = 0; i < map.length; i++) {
             for (var j = 0; j < map[i].length; j++) {
-
                 if (map[i][j] == 0 ) {
                     context.drawImage(grass, posX, posY, 32, 32);
                 }
                 posX += 32;
-
             }
             posX = 0;
             posY += 32;
         }
     }
-
 }
 
 function DrawTreasures(map, context, amount) {
@@ -76,7 +72,7 @@ function DrawTreasures(map, context, amount) {
     sand.src = "Graphics/Tilesets/sand.png";
     var posX = 0;
     var posY = 0;
-    
+
     for (var i = 0; i < amount; i++) {
         var treasurePosX = Math.floor((Math.random() * map.length));
         var treasurePosY = Math.floor((Math.random() * map[0].length));
