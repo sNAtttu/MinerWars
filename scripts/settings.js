@@ -11,6 +11,7 @@ var right = 39;
 var down = 40;
 var dig = 68; // this is the 'd' key
 var h = 72; // 'h' key
+var c = 67; // 'c' key
 
 var treasureAmount = 10;
 
@@ -21,6 +22,9 @@ var treasureAmount = 10;
 */
 var player = new Image();
 player.src = "Graphics/Characters/chara.png"
+
+var lazor = new Image();
+lazor.src = "Graphics/epic/lazor.png"
 
 var sand = new Image();
 sand.src = "Graphics/Tilesets/sand.png";
