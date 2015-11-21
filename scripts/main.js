@@ -8,11 +8,16 @@
         'treasureAmount': treasureAmount
     };    
 
+    var playerData = {
+        'name': 'Santoro',
+        'direction': 'left'
+    };
+
     InitMapArray(mapArray, widthSquares, heightSquares);
     DrawLand(mapArray, context);
     DrawTreasures(mapArray, context, gameData.treasureAmount);
 
-    player.onload = function () {
+    playerLeft.onload = function () {
         var midPoint = Math.floor(mapArray.length / 2);
         setPlayerPosition(midPoint, midPoint);
     };
@@ -27,7 +32,13 @@
         gameData.playerPosition.posX = posX;
         gameData.playerPosition.posY = posY;
         clearCharacterCanvas();
-        characterContext.drawImage(player, posX * 32, posY * 32, 32, 32);
+        if (playerData.direction == 'left') {
+            characterContext.drawImage(playerLeft, posX * 32, posY * 32, 32, 32);
+        }
+        else if (playerData.direction == 'right') {
+            characterContext.drawImage(playerRight, posX * 32, posY * 32, 32, 32);
+        }
+        
     }
 
     function DrawLand(map,context) {
@@ -100,7 +111,7 @@
                         context.drawImage(sand, posX, posY, 32, 32);
                     }
                     if (map[i][j] == 2) {
-                        context.drawImage(player, posX, posY, 32, 32);
+                        context.drawImage(playerLeft, posX, posY, 32, 32);
                     }
                     posX += 32;
                 }
@@ -172,9 +183,11 @@
         var currentPosition = gameData.playerPosition;
         switch (e.which) {
             case left:
+                playerData.direction = 'left';
                 setPlayerPosition(currentPosition.posX - 1, currentPosition.posY);
                 break;
             case right:
+                playerData.direction = 'right';
                 setPlayerPosition(currentPosition.posX + 1, currentPosition.posY);
                 break;
             case down:
