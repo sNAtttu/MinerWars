@@ -30,23 +30,6 @@
         characterContext.drawImage(player, posX * 32, posY * 32, 32, 32);
     }
 
-    function SpawnPlayer(map, context, posX, posY) {
-        player.onload = function () {
-            for (var i = 0; i < map.length; i++) {
-                for (var j = 0; j < map[i].length; j++) {
-
-                    if (i == posX) {
-                        console.log(posX, posY)
-                        setPlayerPosition(posX, posY);
-                    }
-                    posX += 32;
-                }
-                posX = 0;
-                posY += 32;
-            }
-        }
-    }
-
     function DrawLand(map,context) {
         var posX = 0;
         var posY = 0;
@@ -161,6 +144,25 @@
         }
     };
 
+    function shootLazor() {
+        var r1, r2, a = 0;
+        r1 = Math.floor(Math.random() * 3) - 1;
+        r2 = Math.floor(Math.random() * 3) - 1;
+        for (var i = 0; i < 8; i++) {
+            r1 < 0 ? a = -i : a = +i;
+            characterContext.drawImage(lazor, (gameData.playerPosition.posX + (r1 + a)) * 32, (gameData.playerPosition.posY + (r2 + a)) * 32, 32, 32);    
+            window.setTimeout(function() {
+                characterContext.clearRect(0, 0, characterCanvasWidth, characterCanvasHeight); //clear the canvas
+            }, 200);
+
+        }
+        window.setTimeout(function() {
+            setPlayerPosition(gameData.playerPosition.posX, gameData.playerPosition.posY);
+        }, 200);
+        
+        
+    }
+
     $(document).on('keydown', function(e) {
         var currentPosition = gameData.playerPosition;
         switch (e.which) {
@@ -181,6 +183,9 @@
                 break;
             case h:
                 $('#helpMenu').toggleClass('open');
+                break;
+            case c:
+                shootLazor();
                 break;
 
         }   
