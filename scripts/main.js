@@ -4,41 +4,13 @@
 
     var gameData = {
         'treaseureLocations': [],
-        'playerPosition': {}
+        'playerPosition': {},
+        'treasureAmount': treasureAmount
     };    
-
-    var player = new Image();
-    player.src = "Graphics/Characters/chara.png"
-
-    var sand = new Image();
-    sand.src = "Graphics/Tilesets/sand.png";
-
-    var grass = new Image();
-    grass.src = "Graphics/Tilesets/grass.png";
-    
-    var canvas = document.getElementById('mainArea');
-    var characterCanvas = document.getElementById('characterLayer');
-    var context = canvas.getContext('2d');
-    var characterContext = characterCanvas.getContext('2d');
-    canvas.width = canvasWidth;
-    canvas.height = canvasWidth;
-    canvas.style.width =( window.innerWidth -30) + 'px';
-    canvas.style.height = (window.innerHeight -30) + 'px';
-    characterCanvas.width = characterCanvasWidth;
-    characterCanvas.height = characterCanvasHeight;
-    characterCanvas.style.width = (window.innerHeight - 30) + 'px';
-    characterCanvas.style.height = (window.innerHeight - 30) + 'px';
-    var mapWidth = canvas.width;
-    var mapHeight = canvas.height;
-    var mapArray = [];
-
-    var widthSquares = mapWidth / 32;
-    var heightSquares = mapHeight / 32;
-    var treasureAmount = 10;
 
     InitMapArray(mapArray, widthSquares, heightSquares);
     DrawLand(mapArray, context);
-    DrawTreasures(mapArray, context, treasureAmount);
+    DrawTreasures(mapArray, context, gameData.treasureAmount);
     SpawnPlayer(mapArray, characterContext, 0, 0);
 
     function renderingLoop() {
@@ -97,7 +69,7 @@
             var treasurePosX = Math.floor((Math.random() * map.length));
             var treasurePosY = Math.floor((Math.random() * map[0].length));
             map[treasurePosX][treasurePosY] = 1;
-            gameData.treaseureLocations.push({'x': treasurePosX, 'y': treasurePosY});
+            gameData.treaseureLocations.push({'posX': treasurePosX, 'posY': treasurePosY});
 
         }
 
@@ -148,6 +120,23 @@
             }
     }
 
+    function treasureFound() {
+        console.log('treasure has been found!')
+    }
+
+    function digTreasure() {
+        var playerPosX = gameData.playerPosition.posX;
+        var playerPosY = gameData.playerPosition.posY;
+        var arrLength = gameData.treaseureLocations.length;
+
+        for (var i = 0; i < arrLength; i++) {
+            if (playerPosX === gameData.treaseureLocations[i].posX &&
+                playerPosY === gameData.treaseureLocations[i].posY) {
+                treasureFound();
+            }
+        }
+    }
+
     function QueueNewFrame() {
         if (window.requestAnimationFrame)
             window.requestAnimationFrame(renderingLoop);
@@ -180,6 +169,9 @@
                 break;
             case up:
                 setPlayerPosition(currentPosition.posX, currentPosition.posY - 1);
+                break;
+            case dig:
+                digTreasure();
                 break;
         }   
     });
