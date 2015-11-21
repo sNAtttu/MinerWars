@@ -9,12 +9,46 @@
 #mainArea{
     z-index:1;
     position:absolute;
-    left:0px;
+    left:60px;
     top:0px;
 }
 #characterLayer{
     z-index:2;
     position:absolute;
-    left:0px;
+    left:60px;
     top:0px;
+}
+
+#helpMenu {
+    position: fixed;
+    top: 0;
+    left: -200px;
+    width: 200px;
+    height: 100%;
+    z-index: 3;
+    background-color: #FFF;
+    transition: left 1s;
+}
+
+#helpMenu.open {
+    left: 0;
+}
+
+#helpMenuHandleContainer {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+#helpMenuHandle {
+    position: absolute;
+    top: 50%;
+    right: -59px;
+    background-color: red;
+    padding: 12px 14px;
+    color: white;
+}
+
+#helpMenuHandle:hover {
+    cursor: pointer;
 }

@@ -177,3 +177,7 @@
     });
 
 });
+
+$('#helpMenuHandle').on('click',  function(e) {
+    $('#helpMenu').toggleClass('open');
+});
