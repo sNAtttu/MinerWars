@@ -145,12 +145,13 @@
     };
 
     function shootLazor() {
-        var r1, r2, a = 0;
+        var r1, r2, a = 0, b = 0;
         r1 = Math.floor(Math.random() * 3) - 1;
         r2 = Math.floor(Math.random() * 3) - 1;
         for (var i = 0; i < 8; i++) {
             r1 < 0 ? a = -i : a = +i;
-            characterContext.drawImage(lazor, (gameData.playerPosition.posX + (r1 + a)) * 32, (gameData.playerPosition.posY + (r2 + a)) * 32, 32, 32);    
+            r2 < 0 ? b = -i : b = +i;
+            characterContext.drawImage(lazor, (gameData.playerPosition.posX + (r1 + a)) * 32, (gameData.playerPosition.posY + (r2 + b)) * 32, 32, 32);    
             window.setTimeout(function() {
                 characterContext.clearRect(0, 0, characterCanvasWidth, characterCanvasHeight); //clear the canvas
             }, 200);
