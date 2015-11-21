@@ -173,6 +173,10 @@
             case dig:
                 digTreasure();
                 break;
+            case h:
+                $('#helpMenu').toggleClass('open');
+                break;
+
         }   
     });
 

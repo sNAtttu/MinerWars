@@ -10,6 +10,7 @@ var up = 38;
 var right = 39;
 var down = 40;
 var dig = 68; // this is the 'd' key
+var h = 72; // 'h' key
 
 var treasureAmount = 10;
 
