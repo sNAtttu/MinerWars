@@ -8,36 +8,26 @@
         'treasureAmount': treasureAmount
     };    
 
-    var playerData = {
-        'name':'Santoro',
-        'direction':'left'
-    }
-
     InitMapArray(mapArray, widthSquares, heightSquares);
     DrawLand(mapArray, context);
     DrawTreasures(mapArray, context, gameData.treasureAmount);
 
-    playerLeft.onload = function () {
+    player.onload = function () {
         var midPoint = Math.floor(mapArray.length / 2);
         setPlayerPosition(midPoint, midPoint);
     };
     
 
     function renderingLoop() {
+
         QueueNewFrame();
     }
 
     function setPlayerPosition(posX, posY) {
         gameData.playerPosition.posX = posX;
         gameData.playerPosition.posY = posY;
-        characterContext.clearRect(0, 0, characterCanvasWidth, characterCanvasHeight); //clear the canvas
-        if (playerData.direction == 'left') {
-            characterContext.drawImage(playerLeft, posX * 32, posY * 32, 32, 32);
-        }
-        else if (playerData.direction == 'right') {
-            characterContext.drawImage(playerRight, posX * 32, posY * 32, 32, 32);
-        }
-        
+        clearCharacterCanvas();
+        characterContext.drawImage(player, posX * 32, posY * 32, 32, 32);
     }
 
     function DrawLand(map,context) {
@@ -154,6 +144,10 @@
         }
     };
 
+    function clearCharacterCanvas() {
+        characterContext.clearRect(0, 0, characterCanvasWidth, characterCanvasHeight); //clear the canvas
+    }
+
     function shootLazor() {
         var r1, r2, a = 0, b = 0;
         r1 = Math.floor(Math.random() * 3) - 1;
@@ -163,7 +157,7 @@
             r2 < 0 ? b = -i : b = +i;
             characterContext.drawImage(lazor, (gameData.playerPosition.posX + (r1 + a)) * 32, (gameData.playerPosition.posY + (r2 + b)) * 32, 32, 32);    
             window.setTimeout(function() {
-                characterContext.clearRect(0, 0, characterCanvasWidth, characterCanvasHeight); //clear the canvas
+                clearCharacterCanvas();
             }, 200);
 
         }
@@ -178,11 +172,9 @@
         var currentPosition = gameData.playerPosition;
         switch (e.which) {
             case left:
-                playerData.direction = 'left';
                 setPlayerPosition(currentPosition.posX - 1, currentPosition.posY);
                 break;
             case right:
-                playerData.direction = 'right';
                 setPlayerPosition(currentPosition.posX + 1, currentPosition.posY);
                 break;
             case down:
