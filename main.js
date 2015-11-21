@@ -1,4 +1,9 @@
-﻿function initMap() {
+﻿var gameData = {
+    'treaseureLocations': [],
+    'playerPosition': {}
+};
+
+function initMap() {
     console.log("map init started");
     var canvas = document.getElementById('mainArea');
     var characterCanvas = document.getElementById('characterLayer');
@@ -23,12 +28,17 @@
     InitMapArray(mapArray, widthSquares, heightSquares);
     DrawLand(mapArray, context);
     DrawTreasures(mapArray, context, treasureAmount);
-    SpawnPlayer(mapArray, characterContext, 0, 0)
+    SpawnPlayer(mapArray, characterContext, 0, 0);
 }
 
 function renderingLoop() {
 
     QueueNewFrame();
+}
+
+function setPlayerPosition(posX, posY) {
+    gameData.playerPosition.posX = posX;
+    gameData.playerPosition.posY = posY;
 }
 
 function SpawnPlayer(map, context, posX, posY) {
@@ -46,6 +56,7 @@ function SpawnPlayer(map, context, posX, posY) {
             posY += 32;
         }
     }
+    setPlayerPosition(posX, posY);
 }
 
 function DrawLand(map,context) {
@@ -77,6 +88,8 @@ function DrawTreasures(map, context, amount) {
         var treasurePosX = Math.floor((Math.random() * map.length));
         var treasurePosY = Math.floor((Math.random() * map[0].length));
         map[treasurePosX][treasurePosY] = 1;
+        gameData.treaseureLocations.push({'x': treasurePosX, 'y': treasurePosY});
+
     }
 
     sand.onload = function () {
