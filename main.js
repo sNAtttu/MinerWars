@@ -3,6 +3,15 @@
     'playerPosition': {}
 };
 
+var player = new Image();
+player.src = "Graphics/Characters/chara.png"
+
+var sand = new Image();
+sand.src = "Graphics/Tilesets/sand.png";
+
+var grass = new Image();
+grass.src = "Graphics/Tilesets/grass.png";
+
 function initMap() {
     console.log("map init started");
     var canvas = document.getElementById('mainArea');
@@ -42,8 +51,6 @@ function setPlayerPosition(posX, posY) {
 }
 
 function SpawnPlayer(map, context, posX, posY) {
-    var player = new Image();
-    player.src = "Graphics/Characters/chara.png"
     player.onload = function () {
         for (var i = 0; i < map.length; i++) {
             for (var j = 0; j < map[i].length; j++) {
@@ -60,8 +67,6 @@ function SpawnPlayer(map, context, posX, posY) {
 }
 
 function DrawLand(map,context) {
-    var grass = new Image();
-    grass.src = "Graphics/Tilesets/grass.png";
     var posX = 0;
     var posY = 0;
     grass.onload = function () {
@@ -79,8 +84,6 @@ function DrawLand(map,context) {
 }
 
 function DrawTreasures(map, context, amount) {
-    var sand = new Image();
-    sand.src = "Graphics/Tilesets/sand.png";
     var posX = 0;
     var posY = 0;
 
