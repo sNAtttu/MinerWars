@@ -47,9 +47,10 @@
         QueueNewFrame();
     }
 
-    function setPlayerPosition(posX, posY) {
+    function setPlayerPosition(player, context, posX, posY) {
         gameData.playerPosition.posX = posX;
         gameData.playerPosition.posY = posY;
+        context.drawImage(player, posX, posY, 32, 32);
     }
 
     function SpawnPlayer(map, context, posX, posY) {
@@ -58,7 +59,7 @@
                 for (var j = 0; j < map[i].length; j++) {
 
                     if (i == posX) {
-                        context.drawImage(player, posX, posY, 32, 32);
+                        setPlayerPosition(player, context, posX, posY);
                     }
                     posX += 32;
                 }
@@ -66,7 +67,6 @@
                 posY += 32;
             }
         }
-        setPlayerPosition(posX, posY);
     }
 
     function DrawLand(map,context) {
