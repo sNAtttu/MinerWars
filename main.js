@@ -1,5 +1,6 @@
 ﻿var gameData = {
-    'treaseureLocations': []
+    'treaseureLocations': [],
+    'playerPosition': {}
 };
 
 function initMap() {
@@ -35,6 +36,11 @@ function renderingLoop() {
     QueueNewFrame();
 }
 
+function setPlayerPosition(posX, posY) {
+    gameData.playerPosition.posX = posX;
+    gameData.playerPosition.posY = posY;
+}
+
 function SpawnPlayer(map, context, posX, posY) {
     var player = new Image();
     player.src = "Graphics/Characters/chara.png"
@@ -51,6 +57,7 @@ function SpawnPlayer(map, context, posX, posY) {
             posY += 32;
         }
     }
+    setPlayerPosition(posX, posY);
 }
 
 function DrawLand(map,context) {
