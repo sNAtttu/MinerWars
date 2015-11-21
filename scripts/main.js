@@ -24,7 +24,6 @@
     
 
     function renderingLoop() {
-
         QueueNewFrame();
     }
 
