@@ -1,7 +1,17 @@
 ﻿function initMap() {
     console.log("map init started");
     var canvas = document.getElementById('mainArea');
+    var characterCanvas = document.getElementById('characterLayer');
     var context = canvas.getContext('2d');
+    var characterContext = characterCanvas.getContext('2d');
+    canvas.width = 1920;
+    canvas.height = 1080;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    characterCanvas.width = 1920;
+    characterCanvas.height = 1080;
+    characterCanvas.style.width = window.innerWidth + 'px';
+    characterCanvas.style.height = window.innerHeight + 'px';
     var mapWidth = canvas.width;
     var mapHeight = canvas.height;
     var mapArray = [];
@@ -13,6 +23,30 @@
     InitMapArray(mapArray, widthSquares, heightSquares);
     DrawLand(mapArray, context);
     DrawTreasures(mapArray, context, treasureAmount);
+    SpawnPlayer(mapArray, characterContext, 0, 0)
+}
+
+function renderingLoop() {
+
+    QueueNewFrame();
+}
+
+function SpawnPlayer(map, context, posX, posY) {
+    var player = new Image();
+    player.src = "Graphics/Characters/chara.png"
+    player.onload = function () {
+        for (var i = 0; i < map.length; i++) {
+            for (var j = 0; j < map[i].length; j++) {
+
+                if (i == posX && j == posY) {
+                    context.drawImage(player, posX, posY, 32, 32);
+                }
+                posX += 32;
+            }
+            posX = 0;
+            posY += 32;
+        }
+    }
 }
 
 function DrawLand(map,context) {
@@ -24,7 +58,7 @@ function DrawLand(map,context) {
         for (var i = 0; i < map.length; i++) {
             for (var j = 0; j < map[i].length; j++) {
 
-                if (map[i][j] == 0) {
+                if (map[i][j] == 0 ) {
                     context.drawImage(grass, posX, posY, 32, 32);
                 }
                 posX += 32;
@@ -34,6 +68,7 @@ function DrawLand(map,context) {
             posY += 32;
         }
     }
+
 }
 
 function DrawTreasures(map, context, amount) {
@@ -43,8 +78,8 @@ function DrawTreasures(map, context, amount) {
     var posY = 0;
     
     for (var i = 0; i < amount; i++) {
-        var treasurePosX = Math.floor((Math.random() * map[0].length));
-        var treasurePosY = Math.floor((Math.random() * map.length));
+        var treasurePosX = Math.floor((Math.random() * map.length));
+        var treasurePosY = Math.floor((Math.random() * map[0].length));
         map[treasurePosX][treasurePosY] = 1;
     }
 
@@ -73,3 +108,42 @@ function InitMapArray(mapArray, xSquares, ySquares) {
         }
     }
 }
+
+function DrawMap(context, map) {
+
+        for (var i = 0; i < map.length; i++) {
+            for (var j = 0; j < map[i].length; j++) {
+
+                if (map[i][j] == 0) {
+                    context.drawImage(grass, posX, posY, 32, 32);
+                }
+                if (map[i][j] == 1) {
+                    context.drawImage(sand, posX, posY, 32, 32);
+                }
+                if (map[i][j] == 2) {
+                    context.drawImage(player, posX, posY, 32, 32);
+                }
+                posX += 32;
+            }
+            posX = 0;
+            posY += 32;
+        }
+}
+
+function QueueNewFrame() {
+    if (window.requestAnimationFrame)
+        window.requestAnimationFrame(renderingLoop);
+    else if (window.msRequestAnimationFrame)
+        window.msRequestAnimationFrame(renderingLoop);
+    else if (window.webkitRequestAnimationFrame)
+        window.webkitRequestAnimationFrame(renderingLoop);
+    else if (window.mozRequestAnimationFrame)
+        window.mozRequestAnimationFrame(renderingLoop);
+    else if (window.oRequestAnimationFrame)
+        window.oRequestAnimationFrame(renderingLoop);
+    else {
+        QueueNewFrame = function () {
+        };
+        intervalID = window.setInterval(renderingLoop, 16.7);
+    }
+};
