@@ -20,8 +20,11 @@ var treasureAmount = 10;
 		DO NOT EDIT BELOW THIS LINE
 	====================================
 */
-var player = new Image();
-player.src = "Graphics/Characters/chara.png"
+var playerLeft = new Image();
+playerLeft.src = "Graphics/Characters/Player/dwarfLeft.png"
+
+var playerRight = new Image();
+playerRight.src = "Graphics/Characters/Player/dwarfRight.png"
 
 var lazor = new Image();
 lazor.src = "Graphics/epic/lazor.png"
