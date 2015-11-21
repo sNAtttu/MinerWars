@@ -4,6 +4,8 @@
 
     var gameData = {
         'treaseureLocations': [],
+        'stoneLocations': [],
+        'stoneAmount': 8,
         'playerPosition': {},
         'treasureAmount': treasureAmount
     };    
@@ -14,7 +16,7 @@
     };
 
     InitMapArray(mapArray, widthSquares, heightSquares);
-    DrawLand(mapArray, context);
+    DrawLand(mapArray, context, gameData.stoneAmount);
     DrawTreasures(mapArray, context, gameData.treasureAmount);
 
     playerLeft.onload = function () {
@@ -41,15 +43,26 @@
         
     }
 
-    function DrawLand(map,context) {
+    function DrawLand(map,context,stones) {
         var posX = 0;
         var posY = 0;
+
+        for (var i = 0; i < stones; i++) {
+            var stonePosX = Math.floor((Math.random() * map.length));
+            var stonePosY = Math.floor((Math.random() * map[0].length));
+            map[stonePosX][stonePosY] = 2;
+            gameData.stoneLocations.push({ 'posX': stonePosX, 'posY': stonePosY });
+        }
+
         grass.onload = function () {
             for (var i = 0; i < map.length; i++) {
                 for (var j = 0; j < map[i].length; j++) {
 
                     if (map[i][j] == 0 ) {
                         context.drawImage(grass, posX, posY, 32, 32);
+                    }
+                    if (map[i][j] == 2) {
+                        context.drawImage(stone, posX, posY, 32, 32);
                     }
                     posX += 32;
 
