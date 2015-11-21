@@ -4,14 +4,14 @@
     var characterCanvas = document.getElementById('characterLayer');
     var context = canvas.getContext('2d');
     var characterContext = characterCanvas.getContext('2d');
-    canvas.width = 1920;
-    canvas.height = 1080;
-    canvas.style.width = window.innerWidth + 'px';
-    canvas.style.height = window.innerHeight + 'px';
-    characterCanvas.width = 1920;
-    characterCanvas.height = 1080;
-    characterCanvas.style.width = window.innerWidth + 'px';
-    characterCanvas.style.height = window.innerHeight + 'px';
+    canvas.width = 800;
+    canvas.height = 640;
+    canvas.style.width =( window.innerWidth -30) + 'px';
+    canvas.style.height = (window.innerHeight -30) + 'px';
+    characterCanvas.width = 800;
+    characterCanvas.height = 640;
+    characterCanvas.style.width = (window.innerHeight - 30) + 'px';
+    characterCanvas.style.height = (window.innerHeight - 30) + 'px';
     var mapWidth = canvas.width;
     var mapHeight = canvas.height;
     var mapArray = [];
@@ -38,7 +38,7 @@ function SpawnPlayer(map, context, posX, posY) {
         for (var i = 0; i < map.length; i++) {
             for (var j = 0; j < map[i].length; j++) {
 
-                if (i == posX && j == posY) {
+                if (i == posX) {
                     context.drawImage(player, posX, posY, 32, 32);
                 }
                 posX += 32;
