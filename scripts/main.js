@@ -168,4 +168,21 @@
 
     initMap();
 
+    $(document).on('keydown', function(e) {
+        switch (e.which) {
+            case left:
+                console.log('left pressed')
+                break;
+            case right:
+                console.log('right pressed')
+                break;
+            case down:
+                console.log('down pressed')
+                break;
+            case up:
+                console.log('up pressed')
+                break;
+        }   
+    });
+
 });
