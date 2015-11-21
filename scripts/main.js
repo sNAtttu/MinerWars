@@ -17,7 +17,8 @@
     };
 
     InitMapArray(mapArray, widthSquares, heightSquares);
-    DrawLand(mapArray, context, gameData.stoneAmount);
+    DrawLand(mapArray, context);
+    DrawTerrain(mapArray, context, gameData.stoneAmount);
     DrawTreasures(mapArray, context, gameData.treasureAmount);
     $('#lazorStatus').text(gameData.lazors.lazors + ' / ' + gameData.lazors.maxLazors + ' LAZORS');
 
@@ -41,35 +42,49 @@
         
     }
 
-    function DrawLand(map,context,stones) {
+    function DrawLand(map,context) {
         var posX = 0;
         var posY = 0;
 
+        grass.onload = function () {
+            for (var i = 0; i < map.length; i++) {
+                for (var j = 0; j < map[i].length; j++) {
+
+                    if (map[i][j] == 0 ) {
+                        context.drawImage(grass, posX, posY, 32, 32);
+                    }
+                    posX += 32;
+                }
+                posX = 0;
+                posY += 32;
+            }
+        }
+
+    }
+
+    function DrawTerrain(map, context, stones) {
+
+        var posX = 0;
+        var posY = 0;
         for (var i = 0; i < stones; i++) {
             var stonePosX = Math.floor((Math.random() * map.length));
             var stonePosY = Math.floor((Math.random() * map[0].length));
             map[stonePosX][stonePosY] = 2;
             gameData.stoneLocations.push({ 'posX': stonePosX, 'posY': stonePosY });
         }
+        stone.onload = function () {
 
-        grass.onload = function () {
-            stone.onload = function () {
-                for (var i = 0; i < map.length; i++) {
-                    for (var j = 0; j < map[i].length; j++) {
-
-                        if (map[i][j] == 0) {
-                            context.drawImage(grass, posX, posY, 32, 32);
-                        }
-                        if (map[i][j] == 2) {
-                            context.drawImage(stone, posX, posY, 32, 32);
-                        }
-                        posX += 32;
+            for (var i = 0; i < map.length; i++) {
+                for (var j = 0; j < map[i].length; j++) {
+                    if (map[i][j] == 2) {
+                        context.drawImage(stone, posX, posY, 32, 32);
                     }
-                    posX = 0;
-                    posY += 32;
+                    posX += 32;
                 }
+                posX = 0;
+                posY += 32;
             }
-        }
+        }     
     }
 
     function DrawTreasures(map, context, amount) {

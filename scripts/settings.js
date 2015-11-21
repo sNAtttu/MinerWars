@@ -35,9 +35,6 @@ sand.src = "Graphics/Tilesets/sand.png";
 var grass = new Image();
 grass.src = "Graphics/Tilesets/grass.png";
 
-var swamp = new Image();
-grass.src = "Graphics/Tilesets/swamp.png";
-
 var stone = new Image();
 stone.src = "Graphics/Tilesets/stone.png";
 
