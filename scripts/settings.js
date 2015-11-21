@@ -28,6 +28,9 @@ sand.src = "Graphics/Tilesets/sand.png";
 var grass = new Image();
 grass.src = "Graphics/Tilesets/grass.png";
 
+var swamp = new Image();
+grass.src = "Graphics/Tilesets/swamp.png";
+
 var canvas = document.getElementById('mainArea');
 var characterCanvas = document.getElementById('characterLayer');
 var context = canvas.getContext('2d');
