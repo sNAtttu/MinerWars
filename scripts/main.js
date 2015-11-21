@@ -11,7 +11,12 @@
     InitMapArray(mapArray, widthSquares, heightSquares);
     DrawLand(mapArray, context);
     DrawTreasures(mapArray, context, gameData.treasureAmount);
-    SpawnPlayer(mapArray, characterContext, 0, 0);
+
+    player.onload = function () {
+        var midPoint = Math.floor(mapArray.length / 2);
+        setPlayerPosition(midPoint, midPoint);
+    };
+    
 
     function renderingLoop() {
 
@@ -22,7 +27,7 @@
         gameData.playerPosition.posX = posX;
         gameData.playerPosition.posY = posY;
         characterContext.clearRect(0, 0, characterCanvasWidth, characterCanvasHeight); //clear the canvas
-        characterContext.drawImage(player, posX, posY, 32, 32);
+        characterContext.drawImage(player, posX * 32, posY * 32, 32, 32);
     }
 
     function SpawnPlayer(map, context, posX, posY) {
@@ -31,6 +36,7 @@
                 for (var j = 0; j < map[i].length; j++) {
 
                     if (i == posX) {
+                        console.log(posX, posY)
                         setPlayerPosition(posX, posY);
                     }
                     posX += 32;
