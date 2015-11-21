@@ -7,7 +7,8 @@
         'stoneLocations': [],
         'stoneAmount': 8,
         'playerPosition': {},
-        'treasureAmount': treasureAmount
+        'treasureAmount': treasureAmount,
+        'lazors': {'maxLazors': 20, 'lazors': 10}
     };    
 
     var playerData = {
@@ -18,6 +19,7 @@
     InitMapArray(mapArray, widthSquares, heightSquares);
     DrawLand(mapArray, context, gameData.stoneAmount);
     DrawTreasures(mapArray, context, gameData.treasureAmount);
+    $('#lazorStatus').text(gameData.lazors.lazors + ' / ' + gameData.lazors.maxLazors + ' LAZORS');
 
     playerLeft.onload = function () {
         var midPoint = Math.floor(mapArray.length / 2);
@@ -173,6 +175,9 @@
     }
 
     function shootLazor() {
+        if (gameData.lazors.lazors === 0) return false;
+        gameData.lazors.lazors = parseInt(gameData.lazors.lazors) - 1;
+        console.log(gameData.lazors.lazors)
         var r1, r2, a = 0, b = 0;
         r1 = Math.floor(Math.random() * 3) - 1;
         r2 = Math.floor(Math.random() * 3) - 1;
@@ -189,6 +194,7 @@
             setPlayerPosition(gameData.playerPosition.posX, gameData.playerPosition.posY);
         }, 200);
         
+        $('#lazorStatus').text(gameData.lazors.lazors + ' / ' + gameData.lazors.maxLazors + ' LAZORS');
         
     }
 

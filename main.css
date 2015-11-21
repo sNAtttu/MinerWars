@@ -52,3 +52,17 @@
 #helpMenuHandle:hover {
     cursor: pointer;
 }
+
+#gameStatus {
+
+}
+
+#lazorStatus {
+    position: fixed;
+    left: 6%;
+    top: 6px;
+    background-color: #FFF;
+    padding: 12px 20px;
+    z-index: 4;
+
+}
