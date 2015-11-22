@@ -34,6 +34,7 @@
 
     function setPlayerPosition(posX, posY) {
         if (isPlayerOutOfBounds(posX, posY)) return false;
+        if (CheckObstacle(posX, posY)) return false;
         gameData.playerPosition.posX = posX;
         gameData.playerPosition.posY = posY;
         clearCharacterCanvas();
@@ -49,8 +50,7 @@
         grass.onload = function () {
             for (var i = 0; i < map.length; i++) {
                 for (var j = 0; j < map[i].length; j++) {
-
-                    if (map[i][j] == 0 ) {
+                    if (map[i][j] == 0  || map[i][j] == 2) {
                         context.drawImage(grass, posX, posY, 32, 32);
                     }
                     posX += 32;
@@ -73,16 +73,8 @@
             gameData.stoneLocations.push({ 'posX': stonePosX, 'posY': stonePosY });
         }
         stone.onload = function () {
-
-            for (var i = 0; i < map.length; i++) {
-                for (var j = 0; j < map[i].length; j++) {
-                    if (map[i][j] == 2) {
-                        context.drawImage(stone, posX, posY, 32, 32);
-                    }
-                    posX += 32;
-                }
-                posX = 0;
-                posY += 32;
+            for (var i = 0; i < gameData.stoneLocations.length; i++) {
+                context.drawImage(stone, gameData.stoneLocations[i].posX * 32, gameData.stoneLocations[i].posY * 32, 32, 32);
             }
         }     
     }
@@ -131,11 +123,14 @@
                     if (map[i][j] == 0) {
                         context.drawImage(grass, posX, posY, 32, 32);
                     }
-                    if (map[i][j] == 1) {
+                    else if (map[i][j] == 1) {
                         context.drawImage(sand, posX, posY, 32, 32);
                     }
-                    if (map[i][j] == 2) {
+                    else if (map[i][j] == 2) {
                         context.drawImage(playerLeft, posX, posY, 32, 32);
+                    }
+                    else {
+                        context.drawImage(grass, posX, posY, 32, 32);
                     }
                     posX += 32;
                 }
@@ -186,7 +181,6 @@
     function shootLazor() {
         if (gameData.lazors.lazors === 0) return false;
         gameData.lazors.lazors = parseInt(gameData.lazors.lazors) - 1;
-        console.log(gameData.lazors.lazors)
         var r1, r2, a = 0, b = 0;
         r1 = Math.floor(Math.random() * 3) - 1;
         r2 = Math.floor(Math.random() * 3) - 1;
@@ -207,7 +201,6 @@
         
     }
     function CheckObstacle(posX,posY) {
-        
         for (var i = 0; i < gameData.stoneLocations.length; i++) {
             if (posX === gameData.stoneLocations[i].posX && posY === gameData.stoneLocations[i].posY) {
                 return true;
@@ -219,13 +212,10 @@
         var currentPosition = gameData.playerPosition;
         switch (e.which) {
             case left:
-                var isHit = CheckObstacle(currentPosition.posX - 1, currentPosition.posY);
                 gameData.playerData.direction = 'left';
                 setPlayerPosition(currentPosition.posX - 1, currentPosition.posY);
-                //isHit ? console.log("Stone!") : setPlayerPosition(currentPosition.posX - 1, currentPosition.posY);
                 break;
             case right:
-                var isHit = CheckObstacle(currentPosition.posX - 1, currentPosition.posY);
                 gameData.playerData.direction = 'right';
                 setPlayerPosition(currentPosition.posX + 1, currentPosition.posY);
                 break;
