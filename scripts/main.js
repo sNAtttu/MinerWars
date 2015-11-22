@@ -217,7 +217,7 @@
                 var isHit = CheckObstacle(currentPosition.posX - 1, currentPosition.posY);
                 gameData.playerData.direction = 'left';
                 setPlayerPosition(currentPosition.posX - 1, currentPosition.posY);
-                isHit ? console.log("Stone!") : setPlayerPosition(currentPosition.posX - 1, currentPosition.posY);
+                //isHit ? console.log("Stone!") : setPlayerPosition(currentPosition.posX - 1, currentPosition.posY);
                 break;
             case right:
                 var isHit = CheckObstacle(currentPosition.posX - 1, currentPosition.posY);
