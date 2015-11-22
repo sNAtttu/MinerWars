@@ -13,9 +13,9 @@
         'playerData': {
             'name': 'Santoro',
             'direction': 'left',
-            'coins':10
-        },
-        'playerData': {'dead': false} 
+            'coins':10,
+            'dead': false
+        }
     };    
 
     InitMapArray(mapArray, widthSquares, heightSquares);
