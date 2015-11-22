@@ -32,6 +32,17 @@
     font-weight: bold;
 }
 
+#ultraHC {
+
+}
+
+#ultraHC.active {
+    background-color: red;
+    color: white;
+    outline: none;
+    border: none;
+}
+
 #notifications.open {
     background-color: #000;
     color: #FFF;
