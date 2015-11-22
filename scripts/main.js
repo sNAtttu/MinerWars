@@ -30,11 +30,6 @@
         setPlayerPosition(midPoint, midPoint);
     };
     
-    function renderingLoop() {
-
-        QueueNewFrame();
-    }
-
     function updateHud() {
         $('#playerName').text("Name: " + gameData.playerData.name);
         $('#playerCoins').text("Coins: " + gameData.playerData.coins);
@@ -174,24 +169,6 @@
         console.log(playerPosX, playerPosY);
         context.drawImage(hole, playerPosX*32, playerPosY*32, 32, 32);
     }
-
-    function QueueNewFrame() {
-        if (window.requestAnimationFrame)
-            window.requestAnimationFrame(renderingLoop);
-        else if (window.msRequestAnimationFrame)
-            window.msRequestAnimationFrame(renderingLoop);
-        else if (window.webkitRequestAnimationFrame)
-            window.webkitRequestAnimationFrame(renderingLoop);
-        else if (window.mozRequestAnimationFrame)
-            window.mozRequestAnimationFrame(renderingLoop);
-        else if (window.oRequestAnimationFrame)
-            window.oRequestAnimationFrame(renderingLoop);
-        else {
-            QueueNewFrame = function () {
-            };
-            intervalID = window.setInterval(renderingLoop, 16.7);
-        }
-    };
 
     function clearCharacterCanvas() {
         characterContext.clearRect(0, 0, characterCanvasWidth, characterCanvasHeight); //clear the canvas
