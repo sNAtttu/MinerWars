@@ -52,6 +52,8 @@
         var a = gameData.playerData.direction === 'right' ? playerRight : playerLeft;
         characterContext.drawImage(a, posX * 32, posY * 32, 32, 32); 
 
+        spawnChicken();
+
         if (posX === gameData.chicken.posX && gameData.chicken.posY) {
             gameData.lazors.lazors = gameData.lazors.maxLazors;
             gameData.chicken.present = false;
@@ -231,10 +233,12 @@
     }
 
     function spawnChicken() {
-        var posX = Math.floor((Math.random() * mapArray.length));
-        var posY = Math.floor((Math.random() * mapArray.length));
-        gameData.chicken = {'posX': posX, 'posY': posY, 'present': true};
-        characterContext.drawImage(chicken, posX * 32, posY * 32, 32, 32);   
+        if (!gameData.chicken.present && Math.floor((Math.random() * 10)) === 5) {
+            var posX = Math.floor((Math.random() * mapArray.length));
+            var posY = Math.floor((Math.random() * mapArray.length));
+            gameData.chicken = {'posX': posX, 'posY': posY, 'present': true};
+            characterContext.drawImage(chicken, posX * 32, posY * 32, 32, 32);   
+        }
     }
 
     function repaintChicken() {
@@ -270,10 +274,6 @@
             case c:
                 shootLazor();
                 break;
-            case g:
-                spawnChicken();
-                break;
-
         }   
     });
 
