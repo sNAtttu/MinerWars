@@ -242,6 +242,10 @@
                 r1 < 0 ? a = -i : a = +i;
                 r2 < 0 ? b = -i : b = +i;
                 characterContext.drawImage(lazor, (gameData.chicken.posX + (r1 + a)) * 32, (gameData.chicken.posY + (r2 + b)) * 32, 32, 32);    
+                if (gameData.chicken.posX + (r1 + a) === gameData.playerPosition.posX &&
+                    gameData.chicken.posY + (r2 + b) === gameData.playerPosition.posY) {
+                    killPlayer();   
+                }
             }
         }   
     }
