@@ -159,6 +159,8 @@
                 treasureFound();
             }
         }
+        console.log(playerPosX, playerPosY);
+        context.drawImage(hole, playerPosX, playerPosY, 32, 32);
     }
 
     function QueueNewFrame() {
