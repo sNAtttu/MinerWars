@@ -13,14 +13,15 @@
         'playerData': {
             'name': 'Santoro',
             'direction': 'left',
-            'coins':10
+            'coins':10,
+            'dead': false
         }
     };    
 
     InitMapArray(mapArray, widthSquares, heightSquares);
     DrawLand(mapArray, context);
-    DrawTerrain(mapArray, context, gameData.stoneAmount);
     DrawTreasures(mapArray, context, gameData.treasureAmount);
+    DrawTerrain(mapArray, context, gameData.stoneAmount);
     updateHud();
 
     playerLeft.onload = function () {
@@ -44,6 +45,10 @@
     }
 
     function setPlayerPosition(posX, posY) {
+        if (gameData.playerData.dead) {
+            displayDeathScreen();
+            return false;
+        }
         if (isPlayerOutOfBounds(posX, posY)) return false;
         if (CheckObstacle(posX, posY)) return false;
         gameData.playerPosition.posX = posX;
@@ -85,8 +90,6 @@
 
     function DrawTerrain(map, context, stones) {
 
-        var posX = 0;
-        var posY = 0;
         for (var i = 0; i < stones; i++) {
             var stonePosX = Math.floor((Math.random() * map.length));
             var stonePosY = Math.floor((Math.random() * map[0].length));
@@ -101,15 +104,16 @@
     }
 
     function DrawTreasures(map, context, amount) {
-        var posX = 0;
-        var posY = 0;
-        
         for (var i = 0; i < amount; i++) {
             var treasurePosX = Math.floor((Math.random() * map.length));
             var treasurePosY = Math.floor((Math.random() * map[0].length));
             gameData.treaseureLocations.push({'posX': treasurePosX, 'posY': treasurePosY});
         }
-        console.log(gameData.treaseureLocations);
+        sand.onload = function () {
+            for (var i = 0; i < gameData.treaseureLocations.length; i++) {
+                context.drawImage(sand, gameData.treaseureLocations[i].posX * 32, gameData.treaseureLocations[i].posY * 32, 32, 32);
+            }
+        }
     }
 
     function InitMapArray(mapArray, xSquares, ySquares) {
@@ -231,8 +235,31 @@
     function repaintChicken() {
         if (gameData.chicken.present) {
             characterContext.drawImage(chicken, gameData.chicken.posX * 32, gameData.chicken.posY * 32, 32, 32);          
-        }
-        
+            var r1, r2, a = 0, b = 0;
+            r1 = Math.floor(Math.random() * 3) - 1;
+            r2 = Math.floor(Math.random() * 3) - 1;
+            for (var i = 0; i < 8; i++) {
+                r1 < 0 ? a = -i : a = +i;
+                r2 < 0 ? b = -i : b = +i;
+                characterContext.drawImage(lazor, (gameData.chicken.posX + (r1 + a)) * 32, (gameData.chicken.posY + (r2 + b)) * 32, 32, 32);    
+                if (gameData.chicken.posX + (r1 + a) === gameData.playerPosition.posX &&
+                    gameData.chicken.posY + (r2 + b) === gameData.playerPosition.posY) {
+                    killPlayer();   
+                }
+            }
+        }   
+    }
+
+    function killPlayer() {
+        console.log('killing the player')
+        gameData.playerData.dead = true;
+        characterContext.drawImage(playerDead, gameData.playerPosition.posX * 32, gameData.playerPosition.posY * 32, 32, 32);          
+        displayDeathScreen();
+    }
+
+    function displayDeathScreen() {
+        $('#notifications').text('YOU IS DEAD').addClass('open');
+
     }
 
     $(document).on('keydown', function(e) {
@@ -260,6 +287,9 @@
                 break;
             case c:
                 shootLazor();
+                break;
+            case k:
+                killPlayer();
                 break;
         }   
     });
