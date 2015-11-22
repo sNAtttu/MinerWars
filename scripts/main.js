@@ -109,9 +109,7 @@
             var treasurePosY = Math.floor((Math.random() * map[0].length));
             map[treasurePosX][treasurePosY] = 1;
             gameData.treaseureLocations.push({'posX': treasurePosX, 'posY': treasurePosY});
-
         }
-
         sand.onload = function () {
             for (var i = 0; i < map.length; i++) {
                 for (var j = 0; j < map[i].length; j++) {
@@ -174,6 +172,7 @@
             if (playerPosX === gameData.treaseureLocations[i].posX &&
                 playerPosY === gameData.treaseureLocations[i].posY) {
                 treasureFound();
+                characterContext.drawImage(coin, playerPosX * 32, playerPosY * 32, 32, 32);
             }
         }
         console.log(playerPosX, playerPosY);
