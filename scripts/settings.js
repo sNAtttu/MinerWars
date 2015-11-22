@@ -4,8 +4,10 @@ var canvasWidth = 800;
 var canvasHeight = 800;
 var characterCanvasWidth = canvasWidth;
 var characterCanvasHeight = canvasHeight;
-var tileSetPath = "Graphics/Tilesets/";
-var itemsPath = "Graphics/Items/";
+var tileSetPath = "../../Graphics/Tilesets/";
+var itemsPath = "../../Graphics/Items/";
+var playerPath = "../../Graphics/Characters/Player/";
+var enemyPath = "../../Graphics/Characters/Chicken/";
 
 var left = 37;
 var up = 38;
@@ -25,19 +27,19 @@ var treasureAmount = 10;
 	====================================
 */
 var playerLeft = new Image();
-playerLeft.src = "Graphics/Characters/Player/dwarfLeft.png";
+playerLeft.src = playerPath + "dwarfLeft.png";
 
 var playerRight = new Image();
-playerRight.src = "Graphics/Characters/Player/dwarfRight.png";
+playerRight.src = playerPath + "dwarfRight.png";
 
 var playerDead = new Image();
-playerDead.src = "Graphics/Characters/Player/dwarfDead.png";
+playerDead.src = playerPath + "dwarfDead.png";
 
 var lazor = new Image();
-lazor.src = "Graphics/epic/lazor.png";
+lazor.src = "../../Graphics/epic/lazor.png";
 
 var chicken = new Image();
-chicken.src = "Graphics/Characters/Chicken/chicken.png";
+chicken.src = enemyPath + "chicken.png";
 
 var hole = new Image();
 hole.src = tileSetPath + "hole.png";
@@ -58,14 +60,12 @@ var canvas = document.getElementById('mainArea');
 var characterCanvas = document.getElementById('characterLayer');
 var context = canvas.getContext('2d');
 var characterContext = characterCanvas.getContext('2d');
+
 canvas.width = canvasWidth;
 canvas.height = canvasWidth;
-//canvas.style.width =( window.innerWidth -30 - 60) + 'px';
-//canvas.style.height = (window.innerHeight -30) + 'px';
 characterCanvas.width = characterCanvasWidth;
 characterCanvas.height = characterCanvasHeight;
-//characterCanvas.style.width = canvas.style.width;
-//characterCanvas.style.height = canvas.style.height;
+
 var mapWidth = canvas.width;
 var mapHeight = canvas.height;
 var mapArray = [];
