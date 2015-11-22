@@ -28,7 +28,12 @@
         QueueNewFrame();
     }
 
+    function isPlayerOutOfBounds(posX, posY) {
+        return (posY < 0 || mapArray.length === posY || posX < 0 || mapArray.length === posX);
+    }
+
     function setPlayerPosition(posX, posY) {
+        if (isPlayerOutOfBounds(posX, posY)) return false;
         gameData.playerPosition.posX = posX;
         gameData.playerPosition.posY = posY;
         clearCharacterCanvas();
