@@ -4,6 +4,7 @@ var canvasWidth = 800;
 var canvasHeight = 800;
 var characterCanvasWidth = canvasWidth;
 var characterCanvasHeight = canvasHeight;
+var tileSetPath = "Graphics/Tilesets/";
 
 var left = 37;
 var up = 38;
@@ -29,14 +30,17 @@ playerRight.src = "Graphics/Characters/Player/dwarfRight.png"
 var lazor = new Image();
 lazor.src = "Graphics/epic/lazor.png"
 
+var hole = new Image();
+hole.src = tileSetPath + "hole.png";
+
 var sand = new Image();
-sand.src = "Graphics/Tilesets/sand.png";
+sand.src = tileSetPath + "sand.png";
 
 var grass = new Image();
-grass.src = "Graphics/Tilesets/grass.png";
+grass.src = tileSetPath + "grass.png";
 
 var stone = new Image();
-stone.src = "Graphics/Tilesets/stone.png";
+stone.src = tileSetPath + "stone.png";
 
 var canvas = document.getElementById('mainArea');
 var characterCanvas = document.getElementById('characterLayer');
