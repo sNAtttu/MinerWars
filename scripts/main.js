@@ -15,7 +15,8 @@
             'direction': 'left',
             'coins':10,
             'dead': false
-        }
+        },
+        'HCMode': false
     };    
 
     InitMapArray(mapArray, widthSquares, heightSquares);
@@ -45,6 +46,11 @@
     }
 
     function setPlayerPosition(posX, posY) {
+        if (gameData.HCMode || localStorage.getItem('banned') === 'true') {
+            killPlayer();
+            setPermaDeath();
+        }
+
         if (gameData.playerData.dead) {
             displayDeathScreen();
             return false;
@@ -142,6 +148,10 @@
                 posX = 0;
                 posY += 32;
             }
+    }
+
+    function setPermaDeath() {
+        localStorage.setItem("banned", true);
     }
 
     function treasureFound() {
@@ -295,8 +305,17 @@
         }   
     });
 
+    $('#ultraHC').on('click', function(e) {
+        $('#ultraHC').toggleClass('active');
+        if ($('#ultraHC').hasClass('active')) {
+            gameData.HCMode = true;
+            killPlayer();
+            setPermaDeath();
+        }
+    });
 });
 
 $('#helpMenuHandle').on('click',  function(e) {
     $('#helpMenu').toggleClass('open');
 });
+
