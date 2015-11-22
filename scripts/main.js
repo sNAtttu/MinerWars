@@ -14,7 +14,8 @@
             'name': 'Santoro',
             'direction': 'left',
             'coins':10
-        }
+        },
+        'playerData': {'dead': false} 
     };    
 
     InitMapArray(mapArray, widthSquares, heightSquares);
@@ -44,6 +45,10 @@
     }
 
     function setPlayerPosition(posX, posY) {
+        if (gameData.playerData.dead) {
+            displayDeathScreen();
+            return false;
+        }
         if (isPlayerOutOfBounds(posX, posY)) return false;
         if (CheckObstacle(posX, posY)) return false;
         gameData.playerPosition.posX = posX;
@@ -245,8 +250,19 @@
     function repaintChicken() {
         if (gameData.chicken.present) {
             characterContext.drawImage(chicken, gameData.chicken.posX * 32, gameData.chicken.posY * 32, 32, 32);          
-        }
-        
+        }   
+    }
+
+    function killPlayer() {
+        console.log('killing the player')
+        gameData.playerData.dead = true;
+        characterContext.drawImage(playerDead, gameData.playerPosition.posX * 32, gameData.playerPosition.posY * 32, 32, 32);          
+        displayDeathScreen();
+    }
+
+    function displayDeathScreen() {
+        $('#notifications').text('YOU IS DEAD').addClass('open');
+
     }
 
     $(document).on('keydown', function(e) {
@@ -274,6 +290,9 @@
                 break;
             case c:
                 shootLazor();
+                break;
+            case k:
+                killPlayer();
                 break;
         }   
     });

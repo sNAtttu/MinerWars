@@ -15,6 +15,7 @@ var dig = 68; // this is the 'd' key
 var h = 72; // 'h' key
 var c = 67; // 'c' key
 var g = 71;
+var k = 75;
 
 var treasureAmount = 10;
 
@@ -28,6 +29,9 @@ playerLeft.src = "Graphics/Characters/Player/dwarfLeft.png";
 
 var playerRight = new Image();
 playerRight.src = "Graphics/Characters/Player/dwarfRight.png";
+
+var playerDead = new Image();
+playerDead.src = "Graphics/Characters/Player/dwarfDead.png";
 
 var lazor = new Image();
 lazor.src = "Graphics/epic/lazor.png";

@@ -19,6 +19,28 @@
     top:120px;
 }
 
+#notifications {
+    z-index:4;
+    position:absolute;
+    left:100px;
+    top:120px;
+    height: 800px;
+    width: 800px;
+    opacity: 0;
+    transition: opacity 1s;
+    font-size: 72px;
+    font-weight: bold;
+}
+
+#notifications.open {
+    background-color: #000;
+    color: #FFF;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #helpMenu {
     position: fixed;
     top: 0;
