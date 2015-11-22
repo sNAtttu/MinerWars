@@ -9,8 +9,12 @@
         'playerPosition': {},
         'treasureAmount': treasureAmount,
         'lazors': { 'maxLazors': 20, 'lazors': 10 },
-        'playerData':{'name':'Santoro', 'direction':'left'},
-        'chicken': {'present': false}
+        'chicken': {'present': false},
+        'playerData': {
+            'name': 'Santoro',
+            'direction': 'left',
+            'coins':10
+        }
     };    
 
     InitMapArray(mapArray, widthSquares, heightSquares);
@@ -30,6 +34,8 @@
     }
 
     function updateHud() {
+        $('#playerName').text("Name: " + gameData.playerData.name);
+        $('#playerCoins').text("Coins: " + gameData.playerData.coins);
         $('#lazorStatus').text(gameData.lazors.lazors + ' / ' + gameData.lazors.maxLazors + ' LAZORS');
     }
 
