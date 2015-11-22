@@ -5,6 +5,7 @@ var canvasHeight = 800;
 var characterCanvasWidth = canvasWidth;
 var characterCanvasHeight = canvasHeight;
 var tileSetPath = "Graphics/Tilesets/";
+var itemsPath = "Graphics/Items/";
 
 var left = 37;
 var up = 38;
@@ -41,6 +42,9 @@ grass.src = tileSetPath + "grass.png";
 
 var stone = new Image();
 stone.src = tileSetPath + "stone.png";
+
+var coin = new Image();
+coin.src = itemsPath + "coin.png";
 
 var canvas = document.getElementById('mainArea');
 var characterCanvas = document.getElementById('characterLayer');

@@ -147,6 +147,7 @@
 
     function treasureFound() {
         console.log('treasure has been found!')
+        gameData.playerData.coins += 10;
     }
 
     function digTreasure() {
