@@ -13,15 +13,14 @@
         'playerData': {
             'name': 'Santoro',
             'direction': 'left',
-            'coins':10,
-            'dead': false
+            'coins':10
         }
     };    
 
     InitMapArray(mapArray, widthSquares, heightSquares);
     DrawLand(mapArray, context);
-    DrawTreasures(mapArray, context, gameData.treasureAmount);
     DrawTerrain(mapArray, context, gameData.stoneAmount);
+    DrawTreasures(mapArray, context, gameData.treasureAmount);
     updateHud();
 
     playerLeft.onload = function () {
@@ -45,10 +44,6 @@
     }
 
     function setPlayerPosition(posX, posY) {
-        if (gameData.playerData.dead) {
-            displayDeathScreen();
-            return false;
-        }
         if (isPlayerOutOfBounds(posX, posY)) return false;
         if (CheckObstacle(posX, posY)) return false;
         gameData.playerPosition.posX = posX;
@@ -90,6 +85,8 @@
 
     function DrawTerrain(map, context, stones) {
 
+        var posX = 0;
+        var posY = 0;
         for (var i = 0; i < stones; i++) {
             var stonePosX = Math.floor((Math.random() * map.length));
             var stonePosY = Math.floor((Math.random() * map[0].length));
@@ -104,16 +101,15 @@
     }
 
     function DrawTreasures(map, context, amount) {
+        var posX = 0;
+        var posY = 0;
+        
         for (var i = 0; i < amount; i++) {
             var treasurePosX = Math.floor((Math.random() * map.length));
             var treasurePosY = Math.floor((Math.random() * map[0].length));
             gameData.treaseureLocations.push({'posX': treasurePosX, 'posY': treasurePosY});
         }
-        sand.onload = function () {
-            for (var i = 0; i < gameData.treaseureLocations.length; i++) {
-                context.drawImage(sand, gameData.treaseureLocations[i].posX * 32, gameData.treaseureLocations[i].posY * 32, 32, 32);
-            }
-        }
+        console.log(gameData.treaseureLocations);
     }
 
     function InitMapArray(mapArray, xSquares, ySquares) {
@@ -235,19 +231,8 @@
     function repaintChicken() {
         if (gameData.chicken.present) {
             characterContext.drawImage(chicken, gameData.chicken.posX * 32, gameData.chicken.posY * 32, 32, 32);          
-        }   
-    }
-
-    function killPlayer() {
-        console.log('killing the player')
-        gameData.playerData.dead = true;
-        characterContext.drawImage(playerDead, gameData.playerPosition.posX * 32, gameData.playerPosition.posY * 32, 32, 32);          
-        displayDeathScreen();
-    }
-
-    function displayDeathScreen() {
-        $('#notifications').text('YOU IS DEAD').addClass('open');
-
+        }
+        
     }
 
     $(document).on('keydown', function(e) {
@@ -275,9 +260,6 @@
                 break;
             case c:
                 shootLazor();
-                break;
-            case k:
-                killPlayer();
                 break;
         }   
     });
