@@ -23,7 +23,7 @@
     DrawTreasures(mapArray, context, gameData.treasureAmount);
     DrawTerrain(mapArray, context, gameData.stoneAmount);
     updateHud();
-
+    console.log(gameData.treaseureLocations);
     playerLeft.onload = function () {
         var midPoint = Math.floor(mapArray.length / 2);
         setPlayerPosition(midPoint, midPoint);
@@ -108,11 +108,6 @@
             var treasurePosX = Math.floor((Math.random() * map.length));
             var treasurePosY = Math.floor((Math.random() * map[0].length));
             gameData.treaseureLocations.push({'posX': treasurePosX, 'posY': treasurePosY});
-        }
-        sand.onload = function () {
-            for (var i = 0; i < gameData.treaseureLocations.length; i++) {
-                context.drawImage(sand, gameData.treaseureLocations[i].posX * 32, gameData.treaseureLocations[i].posY * 32, 32, 32);
-            }
         }
     }
 
