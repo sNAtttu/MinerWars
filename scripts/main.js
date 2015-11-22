@@ -20,8 +20,8 @@
 
     InitMapArray(mapArray, widthSquares, heightSquares);
     DrawLand(mapArray, context);
-    DrawTerrain(mapArray, context, gameData.stoneAmount);
     DrawTreasures(mapArray, context, gameData.treasureAmount);
+    DrawTerrain(mapArray, context, gameData.stoneAmount);
     updateHud();
 
     playerLeft.onload = function () {
@@ -90,8 +90,6 @@
 
     function DrawTerrain(map, context, stones) {
 
-        var posX = 0;
-        var posY = 0;
         for (var i = 0; i < stones; i++) {
             var stonePosX = Math.floor((Math.random() * map.length));
             var stonePosY = Math.floor((Math.random() * map[0].length));
@@ -106,28 +104,14 @@
     }
 
     function DrawTreasures(map, context, amount) {
-        var posX = 0;
-        var posY = 0;
-        
         for (var i = 0; i < amount; i++) {
             var treasurePosX = Math.floor((Math.random() * map.length));
             var treasurePosY = Math.floor((Math.random() * map[0].length));
-            map[treasurePosX][treasurePosY] = 1;
             gameData.treaseureLocations.push({'posX': treasurePosX, 'posY': treasurePosY});
-
         }
-
         sand.onload = function () {
-            for (var i = 0; i < map.length; i++) {
-                for (var j = 0; j < map[i].length; j++) {
-
-                    if (map[i][j] == 1) {
-                        context.drawImage(sand, posX, posY, 32, 32);
-                    }
-                    posX += 32;
-                }
-                posX = 0;
-                posY += 32;
+            for (var i = 0; i < gameData.treaseureLocations.length; i++) {
+                context.drawImage(sand, gameData.treaseureLocations[i].posX * 32, gameData.treaseureLocations[i].posY * 32, 32, 32);
             }
         }
     }
@@ -179,6 +163,7 @@
             if (playerPosX === gameData.treaseureLocations[i].posX &&
                 playerPosY === gameData.treaseureLocations[i].posY) {
                 treasureFound();
+                characterContext.drawImage(coin, playerPosX * 32, playerPosY * 32, 32, 32);
             }
         }
         console.log(playerPosX, playerPosY);
