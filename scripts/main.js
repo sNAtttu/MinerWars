@@ -9,13 +9,19 @@
         'playerPosition': {},
         'treasureAmount': treasureAmount,
         'lazors': { 'maxLazors': 20, 'lazors': 10 },
-        'playerData':{'name':'Santoro', 'direction':'left'}
+        'playerData': {
+            'name': 'Santoro',
+            'direction': 'left',
+            'coins':10
+        }
     };    
 
     InitMapArray(mapArray, widthSquares, heightSquares);
     DrawLand(mapArray, context);
     DrawTerrain(mapArray, context, gameData.stoneAmount);
     DrawTreasures(mapArray, context, gameData.treasureAmount);
+    $('#playerName').text("Name: " + gameData.playerData.name);
+    $('#playerCoins').text("Coins: " + gameData.playerData.coins);
     $('#lazorStatus').text(gameData.lazors.lazors + ' / ' + gameData.lazors.maxLazors + ' LAZORS');
 
     playerLeft.onload = function () {

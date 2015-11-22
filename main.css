@@ -66,3 +66,12 @@
     z-index: 4;
 
 }
+#lazorStatus {
+    position: fixed;
+    left: 10%;
+    top: 6px;
+    background-color: #FFF;
+    padding: 12px 20px;
+    z-index: 4;
+
+}
