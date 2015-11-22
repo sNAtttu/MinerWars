@@ -5,6 +5,7 @@
     var gameData = {
         'treaseureLocations': [],
         'stoneLocations': [],
+        'coinLocations': [],
         'stoneAmount': 8,
         'playerPosition': {},
         'treasureAmount': treasureAmount,
@@ -52,6 +53,10 @@
         }
         if (isPlayerOutOfBounds(posX, posY)) return false;
         if (CheckObstacle(posX, posY)) return false;
+        if (CheckCoin(posX, posY)) {
+            gameData.playerData.coins += 10;
+            updateHud();
+        }
         gameData.playerPosition.posX = posX;
         gameData.playerPosition.posY = posY;
         clearCharacterCanvas();
@@ -151,7 +156,6 @@
 
     function treasureFound() {
         console.log('treasure has been found!')
-        gameData.playerData.coins += 10;
     }
 
     function digTreasure() {
@@ -163,7 +167,9 @@
             if (playerPosX === gameData.treaseureLocations[i].posX &&
                 playerPosY === gameData.treaseureLocations[i].posY) {
                 treasureFound();
-                characterContext.drawImage(coin, playerPosX * 32, playerPosY * 32, 32, 32);
+                gameData.coinLocations.push({ 'posX': (playerPosX + 1), 'posY': playerPosY });
+                console.log(gameData.coinLocations);
+                characterContext.drawImage(coin, (playerPosX+1) * 32, playerPosY * 32, 32, 32);
             }
         }
         console.log(playerPosX, playerPosY);
@@ -210,7 +216,14 @@
         }
         return false;
     }
-
+    function CheckCoin(posX, posY) {
+        for (var i = 0; i < gameData.coinLocations.length; i++) {
+            if (posX === gameData.coinLocations[i].posX && posY === gameData.coinLocations[i].posY) {
+                return true;
+            }
+        }
+        return false;
+    }
     function spawnChicken() {
         if (!gameData.chicken.present && Math.floor((Math.random() * 10)) === 5) {
             var posX = Math.floor((Math.random() * mapArray.length));
