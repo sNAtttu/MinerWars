@@ -110,10 +110,8 @@
     }
 
     function InitMapArray(mapArray, xSquares, ySquares) {
-        for (var i = 0; i < xSquares; i++) {
-            mapArray[i] = [];
-        }
         for (var i = 0; i < ySquares; i++) {
+            mapArray[i] = [];
             for (var j = 0; j < xSquares; j++) {
                 mapArray[i][j] = 0;
             }
