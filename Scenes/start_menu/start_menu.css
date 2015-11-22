@@ -1,0 +1,41 @@
+﻿#menuContainer {
+    position:relative;
+    height:800px;
+    width:600px;
+    border: 1px dotted red;
+    background-image: url("../../Graphics/Scenes/start_menu/background.png");
+    background-repeat:no-repeat;
+    overflow:no-content;
+}
+#startGame{
+    
+}
+#optionsContainer{
+    position:absolute;
+    border-radius: 25px;
+    margin-top:5%;
+    left:-80%;
+    bottom:0;
+    width:80%;
+    height:60%;
+    background: rgba(170, 90, 9, 0.4);
+    transition: left 2s;
+}
+#optionsContainer.open{
+    left:10%;
+}
+#gameOptions{
+    font-size:large;
+    font-weight:600;
+}
+#startGameBtn{
+    margin-left:35%;
+    font-size:large;
+    font-weight:600;
+}
+.menuOptions{
+    border-radius: 25px;
+    text-align:center;
+    margin-top:5%;
+    border: 1px dotted blue;
+}
