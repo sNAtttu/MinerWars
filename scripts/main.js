@@ -9,6 +9,7 @@
         'playerPosition': {},
         'treasureAmount': treasureAmount,
         'lazors': { 'maxLazors': 20, 'lazors': 10 },
+        'chicken': {'present': false},
         'playerData': {
             'name': 'Santoro',
             'direction': 'left',
@@ -20,9 +21,7 @@
     DrawLand(mapArray, context);
     DrawTerrain(mapArray, context, gameData.stoneAmount);
     DrawTreasures(mapArray, context, gameData.treasureAmount);
-    $('#playerName').text("Name: " + gameData.playerData.name);
-    $('#playerCoins').text("Coins: " + gameData.playerData.coins);
-    $('#lazorStatus').text(gameData.lazors.lazors + ' / ' + gameData.lazors.maxLazors + ' LAZORS');
+    updateHud();
 
     playerLeft.onload = function () {
         var midPoint = Math.floor(mapArray.length / 2);
@@ -32,6 +31,12 @@
     function renderingLoop() {
 
         QueueNewFrame();
+    }
+
+    function updateHud() {
+        $('#playerName').text("Name: " + gameData.playerData.name);
+        $('#playerCoins').text("Coins: " + gameData.playerData.coins);
+        $('#lazorStatus').text(gameData.lazors.lazors + ' / ' + gameData.lazors.maxLazors + ' LAZORS');
     }
 
     function isPlayerOutOfBounds(posX, posY) {
@@ -45,7 +50,15 @@
         gameData.playerPosition.posY = posY;
         clearCharacterCanvas();
         var a = gameData.playerData.direction === 'right' ? playerRight : playerLeft;
-        characterContext.drawImage(a, posX * 32, posY * 32, 32, 32);
+        characterContext.drawImage(a, posX * 32, posY * 32, 32, 32); 
+
+        if (posX === gameData.chicken.posX && gameData.chicken.posY) {
+            gameData.lazors.lazors = gameData.lazors.maxLazors;
+            gameData.chicken.present = false;
+            updateHud();
+        } else {
+            repaintChicken();    
+        }
         
     }
 
@@ -217,6 +230,21 @@
         }
         return false;
     }
+
+    function spawnChicken() {
+        var posX = Math.floor((Math.random() * mapArray.length));
+        var posY = Math.floor((Math.random() * mapArray.length));
+        gameData.chicken = {'posX': posX, 'posY': posY, 'present': true};
+        characterContext.drawImage(chicken, posX * 32, posY * 32, 32, 32);   
+    }
+
+    function repaintChicken() {
+        if (gameData.chicken.present) {
+            characterContext.drawImage(chicken, gameData.chicken.posX * 32, gameData.chicken.posY * 32, 32, 32);          
+        }
+        
+    }
+
     $(document).on('keydown', function(e) {
         var currentPosition = gameData.playerPosition;
         switch (e.which) {
@@ -242,6 +270,9 @@
                 break;
             case c:
                 shootLazor();
+                break;
+            case g:
+                spawnChicken();
                 break;
 
         }   

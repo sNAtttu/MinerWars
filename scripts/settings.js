@@ -14,6 +14,7 @@ var down = 40;
 var dig = 68; // this is the 'd' key
 var h = 72; // 'h' key
 var c = 67; // 'c' key
+var g = 71;
 
 var treasureAmount = 10;
 
@@ -23,13 +24,16 @@ var treasureAmount = 10;
 	====================================
 */
 var playerLeft = new Image();
-playerLeft.src = "Graphics/Characters/Player/dwarfLeft.png"
+playerLeft.src = "Graphics/Characters/Player/dwarfLeft.png";
 
 var playerRight = new Image();
-playerRight.src = "Graphics/Characters/Player/dwarfRight.png"
+playerRight.src = "Graphics/Characters/Player/dwarfRight.png";
 
 var lazor = new Image();
-lazor.src = "Graphics/epic/lazor.png"
+lazor.src = "Graphics/epic/lazor.png";
+
+var chicken = new Image();
+chicken.src = "Graphics/Characters/Chicken/chicken.png";
 
 var hole = new Image();
 hole.src = tileSetPath + "hole.png";
