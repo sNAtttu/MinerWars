@@ -160,7 +160,7 @@
             }
         }
         console.log(playerPosX, playerPosY);
-        context.drawImage(hole, playerPosX, playerPosY, 32, 32);
+        context.drawImage(hole, playerPosX*32, playerPosY*32, 32, 32);
     }
 
     function QueueNewFrame() {
