@@ -1,7 +1,7 @@
 console.log('settings.js loaded')
 
 var canvasWidth = 800;
-var canvasHeight = 640;
+var canvasHeight = 800;
 var characterCanvasWidth = canvasWidth;
 var characterCanvasHeight = canvasHeight;
 
@@ -44,12 +44,12 @@ var context = canvas.getContext('2d');
 var characterContext = characterCanvas.getContext('2d');
 canvas.width = canvasWidth;
 canvas.height = canvasWidth;
-canvas.style.width =( window.innerWidth -30 - 60) + 'px';
-canvas.style.height = (window.innerHeight -30) + 'px';
+//canvas.style.width =( window.innerWidth -30 - 60) + 'px';
+//canvas.style.height = (window.innerHeight -30) + 'px';
 characterCanvas.width = characterCanvasWidth;
 characterCanvas.height = characterCanvasHeight;
-characterCanvas.style.width = (window.innerHeight - 30 - 60) + 'px';
-characterCanvas.style.height = (window.innerHeight - 30) + 'px';
+//characterCanvas.style.width = canvas.style.width;
+//characterCanvas.style.height = canvas.style.height;
 var mapWidth = canvas.width;
 var mapHeight = canvas.height;
 var mapArray = [];

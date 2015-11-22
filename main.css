@@ -9,14 +9,14 @@
 #mainArea{
     z-index:1;
     position:absolute;
-    left:60px;
-    top:0px;
+    left:100px;
+    top:120px;
 }
 #characterLayer{
     z-index:2;
     position:absolute;
-    left:60px;
-    top:0px;
+    left:100px;
+    top:120px;
 }
 
 #helpMenu {
