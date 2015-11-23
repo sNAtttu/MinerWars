@@ -17,7 +17,8 @@
             'coins':10,
             'dead': false
         },
-        'HCMode': false
+        'HCMode': false,
+        'gameStarted':false
     };    
 
     InitMapArray(mapArray, widthSquares, heightSquares);
