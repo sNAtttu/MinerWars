@@ -7,16 +7,24 @@
     margin:2%;
 }
 #mainArea{
+    display:none;
     z-index:1;
     position:absolute;
     left:100px;
     top:120px;
 }
+#mainArea.visible{
+    display:normal;
+}
 #characterLayer{
+    display:none;
     z-index:2;
     position:absolute;
     left:100px;
     top:120px;
+}
+#characterLayer.visible{
+    display:normal;
 }
 
 #notifications {
@@ -99,6 +107,7 @@
     z-index: 4;
 }
 #menuContainer {
+    display:normal;
     position:relative;
     height:800px;
     width:600px;
@@ -106,6 +115,10 @@
     background-image: url("../../Graphics/Scenes/start_menu/background.png");
     background-repeat:no-repeat;
     overflow:no-content;
+    z-index:5;
+}
+#menuContainer.hidden {
+    display:none;
 }
 #startGame{
     

@@ -9,7 +9,7 @@
     <div id="menuContainer">
         <div id="optionsContainer">
             <div id="startGame">
-                <a id="startGameBtn" href="../main/main.html">Start MinerWars!</a>
+                <button id="startGameBtn" onclick="startGameOnClick()">Start Miner Wars!</button>
             </div>
             <div id="gameOptions">
                 <div id="settings" class="menuOptions">Settings</div>
@@ -18,6 +18,12 @@
         </div>
     </div>
     <script>
+        function startGameOnClick() {
+            console.log("mitää helvettiä");
+            $('#mainArea').toggleClass('visible');
+            $('#characterLayer').toggleClass('visible');
+            $('menuContainer').toggleClass('hidden');
+        };
         setTimeout(function () {
             $('#optionsContainer').toggleClass('open');
         }, 500);
