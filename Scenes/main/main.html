@@ -20,9 +20,9 @@
     <script>
         function startGameOnClick() {
             console.log("mitää helvettiä");
+            $('#menuContainer').toggleClass('hidden');
             $('#mainArea').toggleClass('visible');
             $('#characterLayer').toggleClass('visible');
-            $('menuContainer').toggleClass('hidden');
         };
         setTimeout(function () {
             $('#optionsContainer').toggleClass('open');
